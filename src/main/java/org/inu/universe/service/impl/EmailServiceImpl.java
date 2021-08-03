@@ -59,7 +59,7 @@ public class EmailServiceImpl implements EmailService {
     public Email authEmail(EmailAuthRequest request) {
         String authKey = request.getAuthKey();
         String saveEmailId = redisUtil.getData(authKey);
-        if (saveEmailId.equals(null)) {
+        if (saveEmailId == null) {
             throw new EmailException("인증 번호가 일치하지 않습니다.");
         }
 

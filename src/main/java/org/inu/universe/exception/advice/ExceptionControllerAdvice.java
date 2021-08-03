@@ -41,7 +41,7 @@ public class ExceptionControllerAdvice {
                 .body(new ExceptionResponse(e.getMessage(), null));
     }
 
-    @ExceptionHandler({EmailException.class, AccountException.class})
+    @ExceptionHandler({EmailException.class, AccountException.class, IllegalStateException.class})
     public ResponseEntity InvalidReqExceptionHandling(RuntimeException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);

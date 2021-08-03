@@ -1,0 +1,35 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= EMAIL API GUIDE
+:doctype: email
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== Email 전송
+해당 이메일 주소로 인증 번호 전송
+
+===== REQUEST
+include::{snippets}/email/send/http-request.adoc[]
+include::{snippets}/email/send/request-fields.adoc[]
+===== RESPONSE
+include::{snippets}/email/send/http-response.adoc[]
+
+
+== Email 인증
+인증 번호 입력 후 인증
+
+===== REQUEST
+include::{snippets}/email/auth/http-request.adoc[]
+include::{snippets}/email/auth/request-fields.adoc[]
+===== RESPONSE
+include::{snippets}/email/auth/http-response.adoc[]
+
+
+

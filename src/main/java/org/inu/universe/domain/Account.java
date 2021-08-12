@@ -20,19 +20,23 @@ public class Account extends BaseEntity {
     @Column(name = "account_id")
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "email_id")
-    private Email email;
-
     private String password;
 
-    private String refreshToken;        // accessToken 만료 시, refreshToken을 이용하여 재발급
+    private String refreshToken;
 
     @Enumerated(EnumType.STRING)
     private AccountStatus status;
 
     @Enumerated(EnumType.STRING)
     private AccountRole role;
+
+    @OneToOne(fetch = FetchType.LAZY)    // 주 테이블에 외래 키. 단방향
+    @JoinColumn(name = "email_id")
+    private Email email;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "profile_id")
+    private Profile profile;
 
     public static Account saveAccount(Email email, String password) {
         Account account = new Account();
@@ -54,5 +58,9 @@ public class Account extends BaseEntity {
 
     public void setRefreshToken(String refreshToken) {
         this.refreshToken = refreshToken;
+    }
+
+    public void setProfile(Profile profile) {
+        this.profile = profile;
     }
 }

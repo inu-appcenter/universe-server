@@ -31,10 +31,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
 
                 .antMatchers("/exception/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/email", "/account", "/account/login", "/account/reissue").permitAll()
+                .antMatchers(HttpMethod.POST, "/email", "/account", "/account/login").permitAll()
                 .antMatchers(HttpMethod.GET, "/email/auth", "/docs/Account.html", "/docs/Email.html", "/docs/api-guide.html").permitAll()
 
-                .anyRequest().hasAnyRole("ROLE_USER", "ROLE_ADMIN")
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
 
                 .exceptionHandling()
@@ -43,5 +43,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
+
     }
 }

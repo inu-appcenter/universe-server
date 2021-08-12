@@ -12,10 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
 
-
 @RestController
 @RequiredArgsConstructor
-public class EmailController {
+public class EmailController{
 
     private final EmailService emailService;
 

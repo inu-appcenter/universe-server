@@ -5,8 +5,7 @@ import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.token.TokenDto;
 import org.inu.universe.repository.AccountRepository;
 import org.inu.universe.repository.EmailRepository;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
@@ -26,6 +25,7 @@ import static org.mockito.BDDMockito.given;
 import static org.mockito.BDDMockito.then;
 import static org.mockito.Mockito.times;
 
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
 class AccountServiceImplTest {
 
@@ -40,6 +40,7 @@ class AccountServiceImplTest {
     @Mock
     private JwtTokenProvider jwtTokenProvider;
 
+    @Order(1)
     @Test
     @DisplayName("계정 생성(회원 가입)")
     public void saveAccount() {

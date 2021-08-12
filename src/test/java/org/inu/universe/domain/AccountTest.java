@@ -6,7 +6,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.inu.universe.TestFixture.EMAIL;
 
 class AccountTest {
 
@@ -17,7 +16,7 @@ class AccountTest {
         email.authEmail();
         Account account = Account.saveAccount(email, "a");
 
-        assertThat(account.getEmail()).isEqualTo(EMAIL);
+        assertThat(account.getEmail()).isEqualTo(email);
         assertThat(account.getPassword()).isEqualTo("a");
         assertThat(account.getStatus()).isEqualTo(AccountStatus.ACTIVE);
         assertThat(account.getRole()).isEqualTo(AccountRole.ROLE_USER);

@@ -1,0 +1,69 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= PROFILE API GUIDE
+:doctype: profile
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== Profile 생성
+HTTP Header로 Access Token,
+
+HTTP Body로 닉네임, 나이, 성별, 학과를 담아 요청 -> 프로필 생성
+
+
+===== REQUEST
+include::{snippets}/profile/save/request-headers.adoc[]
+include::{snippets}/profile/save/http-request.adoc[]
+include::{snippets}/profile/save/request-fields.adoc[]
+===== RESPONSE
+include::{snippets}/profile/save/http-response.adoc[]
+include::{snippets}/profile/save/response-fields.adoc[]
+
+
+[[api]]
+== 해시태그 선택
+HTTP Header로 Access Token,
+
+List<String> hashTagList 요청 -> List<HashTag>, 해시태그 리스트 응답
+
+===== REQUEST
+include::{snippets}/profile/hashTag/request-headers.adoc[]
+include::{snippets}/profile/hashTag/http-request.adoc[]
+include::{snippets}/profile/hashTag/request-fields.adoc[]
+===== RESPONSE
+include::{snippets}/profile/hashTag/http-response.adoc[]
+include::{snippets}/profile/hashTag/response-fields.adoc[]
+
+
+[[api]]
+== Profile 수정
+HTTP Header로 Access Token,
+프로필 사진(image)와 수정 사항 요청 -> 프로필 수정
+
+
+===== REQUEST
+include::{snippets}/profile/update/request-headers.adoc[]
+include::{snippets}/profile/update/http-request.adoc[]
+include::{snippets}/profile/update/request-parts.adoc[]
+
+- [프로필 수정 요청(request) fields]
+include::{snippets}/profile/update/request-part-request-fields.adoc[]
+
+===== RESPONSE
+include::{snippets}/profile/update/http-response.adoc[]
+include::{snippets}/profile/update/response-fields.adoc[]
+
+[[api]]
+== Profile 조회
+===== REQUEST
+include::{snippets}/profile/findProfile/http-request.adoc[]
+===== RESPONSE
+include::{snippets}/profile/findProfile/http-response.adoc[]
+include::{snippets}/profile/findProfile/response-fields.adoc[]

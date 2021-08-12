@@ -1,9 +1,6 @@
 package org.inu.universe.exception.advice;
 
-import org.inu.universe.exception.AccessDeniedException;
-import org.inu.universe.exception.AuthenticationException;
-import org.inu.universe.exception.EmailException;
-import org.inu.universe.exception.AccountException;
+import org.inu.universe.exception.*;
 import org.inu.universe.model.common.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,7 +38,7 @@ public class ExceptionControllerAdvice {
                 .body(new ExceptionResponse(e.getMessage(), null));
     }
 
-    @ExceptionHandler({EmailException.class, AccountException.class, IllegalStateException.class})
+    @ExceptionHandler({EmailException.class, AccountException.class, ProfileException.class, HashTagException.class, IllegalStateException.class})
     public ResponseEntity InvalidReqExceptionHandling(RuntimeException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);

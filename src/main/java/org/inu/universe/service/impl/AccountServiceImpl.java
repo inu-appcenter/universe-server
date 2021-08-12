@@ -1,7 +1,6 @@
 package org.inu.universe.service.impl;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.inu.universe.config.security.JwtTokenProvider;
 import org.inu.universe.domain.Email;
 import org.inu.universe.domain.Account;
@@ -21,7 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.PostConstruct;
 
-@Slf4j
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)     // transection 커밋시 자동으로 flush(변경 내용 DB에 반영)가 호출되지 않음

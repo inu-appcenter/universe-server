@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import org.inu.universe.config.security.JwtTokenProvider;
 import org.inu.universe.domain.Email;
 import org.inu.universe.domain.Account;
-import org.inu.universe.domain.status.EmailStatus;
 import org.inu.universe.exception.EmailException;
 import org.inu.universe.exception.AccountException;
 import org.inu.universe.model.account.AccountLoginRequest;
@@ -17,8 +16,6 @@ import org.inu.universe.service.AccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.annotation.PostConstruct;
 
 
 @Service
@@ -49,9 +46,6 @@ public class AccountServiceImpl implements AccountService {
         // - 인증된 이메일인지 확인
         Email email = emailRepository.findByAddress(request.getAddress())
                 .orElseThrow(() -> new EmailException("이메일 인증을 완료해주세요."));
-        if (!email.getStatus().equals(EmailStatus.AUTH)) {
-            throw new EmailException("이메일 인증은 완료해주세요.");
-        }
 
         // - 이미 가입된 계정인지 확인
         if (accountRepository.findByEmail(email).isPresent()) {

@@ -25,7 +25,6 @@ class AccountRepositoryTest {
     public void save() {
 
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Account account = Account.saveAccount(email, "a");
 
         Account savedAccount = accountRepository.save(account);
@@ -37,7 +36,6 @@ class AccountRepositoryTest {
     @DisplayName("계정 조회 by Id")
     public void findById() {
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Account account = Account.saveAccount(email, "a");
 
         Account savedAccount = accountRepository.save(account);
@@ -51,7 +49,6 @@ class AccountRepositoryTest {
     @DisplayName("계정 조회 by Email")
     public void findByEmail() {
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Email savedEmail = emailRepository.save(email);
         Account account = Account.saveAccount(email, "a");
 

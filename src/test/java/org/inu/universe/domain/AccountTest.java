@@ -13,7 +13,6 @@ class AccountTest {
     @DisplayName("계정 생성")
     void saveAccount() {
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Account account = Account.saveAccount(email, "a");
 
         assertThat(account.getEmail()).isEqualTo(email);
@@ -26,7 +25,6 @@ class AccountTest {
     @DisplayName("관리자 계정 생성")
     void saveAdminAccount() {
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Account account = Account.saveAdminAccount(email, "a");
 
         assertThat(account.getEmail()).isEqualTo(email);
@@ -39,7 +37,6 @@ class AccountTest {
     @DisplayName("계정 RefreshToken 설정")
     void setRefreshToken() {
         Email email = Email.saveEmail("a@inu.ac.kr");
-        email.authEmail();
         Account account = Account.saveAdminAccount(email, "a");
 
         account.setRefreshToken("refreshToken");

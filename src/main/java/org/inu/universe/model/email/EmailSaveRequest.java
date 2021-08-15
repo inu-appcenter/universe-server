@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
 @Data
@@ -12,7 +11,9 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class EmailSaveRequest {
 
-    @Email
-    @NotBlank(message = "학교 이메일(필수)")
+    @NotBlank(message = "이메일 주소(필수)")
     private String address;
+
+    @NotBlank(message = "이메일 인증 번호(필수)")
+    private String authKey;
 }

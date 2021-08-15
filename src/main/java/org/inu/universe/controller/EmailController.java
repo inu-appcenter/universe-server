@@ -1,8 +1,8 @@
 package org.inu.universe.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.inu.universe.model.email.EmailAuthRequest;
 import org.inu.universe.model.email.EmailSaveRequest;
+import org.inu.universe.model.email.EmailRequest;
 import org.inu.universe.service.EmailService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +22,7 @@ public class EmailController{
     이메일 전송
     */
     @PostMapping("/email")
-    public ResponseEntity<Void> sendEmail(@RequestBody @Valid EmailSaveRequest request) {
+    public ResponseEntity<Void> sendEmail(@RequestBody @Valid EmailRequest request) {
         emailService.sendEmail(request);
         return ResponseEntity.ok().build();
     }
@@ -31,7 +31,7 @@ public class EmailController{
     이메일 인증
      */
     @GetMapping("/email/auth")
-    public ResponseEntity authEmail(@RequestBody @Valid EmailAuthRequest request) {
+    public ResponseEntity authEmail(@RequestBody @Valid EmailSaveRequest request) {
         emailService.authEmail(request);
         return ResponseEntity.ok().build();
     }

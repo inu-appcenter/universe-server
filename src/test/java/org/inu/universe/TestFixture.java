@@ -5,11 +5,10 @@ import org.inu.universe.domain.Email;
 import org.inu.universe.domain.ProfileImage;
 import org.inu.universe.domain.status.AccountRole;
 import org.inu.universe.domain.status.AccountStatus;
-import org.inu.universe.domain.status.EmailStatus;
 import org.inu.universe.model.account.AccountLoginRequest;
 import org.inu.universe.model.account.AccountSaveRequest;
-import org.inu.universe.model.email.EmailAuthRequest;
 import org.inu.universe.model.email.EmailSaveRequest;
+import org.inu.universe.model.email.EmailRequest;
 import org.inu.universe.model.hashtag.HashTagResponse;
 import org.inu.universe.model.hashtag.HashTagSaveRequest;
 import org.inu.universe.model.profile.ProfileResponse;
@@ -29,17 +28,14 @@ public class TestFixture {
     public static final AccountLoginRequest ACCOUNT_LOGIN_REQUEST
             = new AccountLoginRequest("a@inu.ac.kr", "a");
 
-    public static final EmailSaveRequest EMAIL_SAVE_REQUEST
-            = new EmailSaveRequest("a@inu.ac.kr");
+    public static final EmailRequest EMAIL_REQUEST
+            = new EmailRequest("a@inu.ac.kr");
 
-    public static final EmailAuthRequest EMAIL_AUTH_REQUEST
-            = new EmailAuthRequest("123456");
+    public static final EmailSaveRequest EMAIL_SAVE_REQUEST
+            = new EmailSaveRequest("a@inu.ac.kr", "123456");
 
     public static final Email EMAIL
-            = new Email(1L, "a@inu.ac.kr", EmailStatus.AUTH);
-
-    public static final Email EMAIL_2
-            = new Email(1L, "a@inu.ac.kr", EmailStatus.NOTAUTH);
+            = new Email(1L, "a@inu.ac.kr");
 
     public static final Account ACCOUNT
             = new Account(1L,  "a", null, AccountStatus.ACTIVE, AccountRole.ROLE_USER, EMAIL,null);

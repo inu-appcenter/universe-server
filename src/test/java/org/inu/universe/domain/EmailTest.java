@@ -1,6 +1,5 @@
 package org.inu.universe.domain;
 
-import org.inu.universe.domain.status.EmailStatus;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -14,7 +13,6 @@ class EmailTest {
         Email email = Email.saveEmail("a@inu.ac.kr");
 
         assertThat(email.getAddress()).isEqualTo("a@inu.ac.kr");
-        assertThat(email.getStatus()).isEqualTo(EmailStatus.NOTAUTH);
     }
 
     @Test
@@ -23,16 +21,6 @@ class EmailTest {
         Email email = Email.saveAdminEmail("a@inu.ac.kr");
 
         assertThat(email.getAddress()).isEqualTo("a@inu.ac.kr");
-        assertThat(email.getStatus()).isEqualTo(EmailStatus.AUTH);
     }
 
-    @Test
-    @DisplayName("이메일 인증")
-    void authEmail() {
-        Email email = Email.saveEmail("a@inu.ac.kr");
-
-        email.authEmail();
-
-        assertThat(email.getStatus()).isEqualTo(EmailStatus.AUTH);
-    }
 }

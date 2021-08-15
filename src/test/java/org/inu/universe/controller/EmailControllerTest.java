@@ -66,9 +66,8 @@ class EmailControllerTest {
     @DisplayName("이메일 전송")
     void sendEmail() throws Exception {
 
-        String body = objectMapper.writeValueAsString(EMAIL_SAVE_REQUEST);
+        String body = objectMapper.writeValueAsString(EMAIL_REQUEST);
 
-        given(emailService.sendEmail(any())).willReturn(EMAIL_2);
 
         mockMvc.perform(post("/email")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -87,7 +86,7 @@ class EmailControllerTest {
     @DisplayName("이메일 인증")
     void authEmail() throws Exception {
 
-        String body = objectMapper.writeValueAsString(EMAIL_AUTH_REQUEST);
+        String body = objectMapper.writeValueAsString(EMAIL_SAVE_REQUEST);
 
         given(emailService.authEmail(any())).willReturn(EMAIL);
 
@@ -98,6 +97,7 @@ class EmailControllerTest {
                 .andExpect(status().isOk())
                 .andDo(document("email/auth",
                         requestFields(
+                                fieldWithPath("address").type(JsonFieldType.STRING).description("학교 이메일 주소"),
                                 fieldWithPath("authKey").type(JsonFieldType.STRING).description("인증 번호")
                         )));
         then(emailService).should(times(1)).authEmail(any());

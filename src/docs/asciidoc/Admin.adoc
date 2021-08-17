@@ -1,0 +1,24 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= ADMIN API GUIDE
+:doctype: admin
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== Admin - 계정 삭제
+Http Headr로 admin AccessToken,
+pathVariable에 해당하는 계정 삭제(프로필, 프로필 태그, 이메일 포함)
+
+===== REQUEST
+include::{snippets}/admin/deleteAccount/http-request.adoc[]
+include::{snippets}/admin/deleteAccount/request-headers.adoc[]
+include::{snippets}/admin/deleteAccount/path-parameters.adoc[]
+===== RESPONSE
+include::{snippets}/admin/deleteAccount/http-response.adoc[]

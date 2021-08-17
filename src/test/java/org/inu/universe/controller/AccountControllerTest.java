@@ -3,7 +3,6 @@ package org.inu.universe.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.inu.universe.config.security.LoginAccountArgumentResolver;
 import org.inu.universe.config.security.SecurityConfig;
-import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.service.impl.AccountServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,8 +29,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 import static org.inu.universe.TestFixture.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.BDDMockito.then;
+import static org.mockito.BDDMockito.*;
 import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -79,7 +77,7 @@ class AccountControllerTest {
 
         String body = objectMapper.writeValueAsString(ACCOUNT_SAVE_REQUEST);
 
-        given(accountService.saveAccount(any())).willReturn(AccountResponse.from(ACCOUNT));
+        willDoNothing().given(accountService).saveAccount(any());
 
         mockMvc.perform(post("/account")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)

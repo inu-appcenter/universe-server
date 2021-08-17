@@ -21,6 +21,10 @@ public class ProfileSaveRequest {
     @NotBlank(message = "성별(필수)")
     private String gender;
 
+    @NotBlank(message = "단과대(필수)")
+    private String college;
+
     @NotBlank(message = "학과(필수)")
     private String major;
+
 }

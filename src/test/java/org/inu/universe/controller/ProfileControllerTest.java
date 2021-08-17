@@ -112,6 +112,7 @@ class ProfileControllerTest {
                                 fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임 (필수, 중복X)"),
                                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이 (필수)"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별 (필수)"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대 (필수)"),
                                 fieldWithPath("major").type(JsonFieldType.STRING).description("학과 (필수)")
                         ),
                         responseFields(
@@ -120,6 +121,7 @@ class ProfileControllerTest {
                                 fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임"),
                                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대"),
                                 fieldWithPath("major").type(JsonFieldType.STRING).description("학과"),
                                 fieldWithPath("militaryStatus").type(JsonFieldType.BOOLEAN).description("병역필 (false)"),
                                 fieldWithPath("graduationStatus").type(JsonFieldType.BOOLEAN).description("졸업유무 (false)"),
@@ -128,7 +130,8 @@ class ProfileControllerTest {
                                 fieldWithPath("bodyType").type(JsonFieldType.STRING).description("체형 (null)").optional(),
                                 fieldWithPath("mbti").type(JsonFieldType.STRING).description("MBTI (null)").optional(),
                                 fieldWithPath("introduction").type(JsonFieldType.STRING).description("소개 (null)").optional(),
-                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그 (empty)").optional()
+                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그 (empty)").optional(),
+                                fieldWithPath("profilePrivate").type(JsonFieldType.BOOLEAN).description("공개 여부 (false)")
                         )));
 
         then(profileService).should(times(1)).saveProfile(any(), any());
@@ -144,7 +147,7 @@ class ProfileControllerTest {
 
         String response = objectMapper.writeValueAsString(hashTagResponseList);
 
-        given(profileService.findHashTag(any(), any())).willReturn(hashTagResponseList);
+        given(profileService.findHashTag(any())).willReturn(hashTagResponseList);
 
         when(loginAccountArgumentResolver.resolveArgument(
                 (MethodParameter) notNull()
@@ -172,7 +175,7 @@ class ProfileControllerTest {
                                 fieldWithPath("[].name").type(JsonFieldType.STRING).description("해시태그 내용")
                         )));
 
-        then(profileService).should(times(1)).findHashTag(any(), any());
+        then(profileService).should(times(1)).findHashTag(any());
     }
 
     @Test
@@ -189,7 +192,7 @@ class ProfileControllerTest {
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_2);
 
-        given(profileService.updateProfile(any(), any(), any(), any())).willReturn(PROFILE_RESPONSE_2);
+        given(profileService.updateProfile(any(), any(), any())).willReturn(PROFILE_RESPONSE_2);
 
         when(loginAccountArgumentResolver.resolveArgument(
                 (MethodParameter) notNull()
@@ -219,6 +222,7 @@ class ProfileControllerTest {
                                 fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네일 (필수)"),
                                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이 (필수)"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별 (필수)"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대 (필수)"),
                                 fieldWithPath("major").type(JsonFieldType.STRING).description("학과 (필수)"),
                                 fieldWithPath("militaryStatus").type(JsonFieldType.BOOLEAN).description("병역필"),
                                 fieldWithPath("graduationStatus").type(JsonFieldType.BOOLEAN).description("졸업유무"),
@@ -227,7 +231,8 @@ class ProfileControllerTest {
                                 fieldWithPath("bodyType").type(JsonFieldType.STRING).description("체형").optional(),
                                 fieldWithPath("mbti").type(JsonFieldType.STRING).description("MBTI").optional(),
                                 fieldWithPath("introduction").type(JsonFieldType.STRING).description("소개").optional(),
-                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional()
+                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional(),
+                                fieldWithPath("profilePrivate").type(JsonFieldType.BOOLEAN).description("공개 여부")
                         ),
                         responseFields(
                                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("프로필 ID"),
@@ -238,6 +243,7 @@ class ProfileControllerTest {
                                 fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임"),
                                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대"),
                                 fieldWithPath("major").type(JsonFieldType.STRING).description("학과"),
                                 fieldWithPath("militaryStatus").type(JsonFieldType.BOOLEAN).description("병역필"),
                                 fieldWithPath("graduationStatus").type(JsonFieldType.BOOLEAN).description("졸업유무"),
@@ -246,19 +252,20 @@ class ProfileControllerTest {
                                 fieldWithPath("bodyType").type(JsonFieldType.STRING).description("체형").optional(),
                                 fieldWithPath("mbti").type(JsonFieldType.STRING).description("MBTI").optional(),
                                 fieldWithPath("introduction").type(JsonFieldType.STRING).description("소개").optional(),
-                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional()
+                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional(),
+                                fieldWithPath("profilePrivate").type(JsonFieldType.BOOLEAN).description("공개 여부")
                         )));
 
-        then(profileService).should(times(1)).updateProfile(any(), any(), any(), any());
+        then(profileService).should(times(1)).updateProfile(any(), any(), any());
     }
 
     @Test
-    @DisplayName("프로필 조회")
-    public void findProfile() throws Exception{
+    @DisplayName("프로필 조회 [공개일 경우]")
+    public void findPublicProfile() throws Exception{
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_2);
 
-        given(profileService.findProfile(any(), any())).willReturn(PROFILE_RESPONSE_2);
+        given(profileService.findProfile(any())).willReturn(PROFILE_RESPONSE_2);
 
         when(loginAccountArgumentResolver.resolveArgument(
                 (MethodParameter) notNull()
@@ -271,7 +278,7 @@ class ProfileControllerTest {
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(response))
-                .andDo(document("profile/findProfile",
+                .andDo(document("profile/findProfile(public)",
                         requestHeaders(
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
                         ),
@@ -287,6 +294,7 @@ class ProfileControllerTest {
                                 fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임"),
                                 fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대"),
                                 fieldWithPath("major").type(JsonFieldType.STRING).description("학과"),
                                 fieldWithPath("militaryStatus").type(JsonFieldType.BOOLEAN).description("병역필"),
                                 fieldWithPath("graduationStatus").type(JsonFieldType.BOOLEAN).description("졸업유무"),
@@ -295,10 +303,62 @@ class ProfileControllerTest {
                                 fieldWithPath("bodyType").type(JsonFieldType.STRING).description("체형").optional(),
                                 fieldWithPath("mbti").type(JsonFieldType.STRING).description("MBTI").optional(),
                                 fieldWithPath("introduction").type(JsonFieldType.STRING).description("소개").optional(),
-                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional()
+                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional(),
+                                fieldWithPath("profilePrivate").type(JsonFieldType.BOOLEAN).description("공개 여부")
                         )));
 
 
-        then(profileService).should(times(1)).findProfile(any(), any());
+        then(profileService).should(times(1)).findProfile(any());
+    }
+
+    @Test
+    @DisplayName("프로필 조회 [비공개일 경우]")
+    public void findPrivateProfile() throws Exception{
+
+        String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_3);
+
+        given(profileService.findProfile(any())).willReturn(PROFILE_RESPONSE_3);
+
+        when(loginAccountArgumentResolver.resolveArgument(
+                (MethodParameter) notNull()
+                , (ModelAndViewContainer) notNull()
+                , (NativeWebRequest) notNull()
+                , (WebDataBinderFactory) notNull()
+        )).thenReturn(1L);
+
+        mockMvc.perform(get("/profile/{profileId}", 1L)
+                .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(response))
+                .andDo(document("profile/findProfile(private)",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
+                        ),
+                        pathParameters(
+                                parameterWithName("profileId").description("프로필 Id")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("프로필 ID"),
+                                fieldWithPath("profileImage").type(JsonFieldType.OBJECT).description("프로필 사진").optional(),
+                                fieldWithPath("profileImage.imageStoreName").type(JsonFieldType.STRING).description("이미지 저장된 이름"),
+                                fieldWithPath("profileImage.profileImageUrl").type(JsonFieldType.STRING).description("이미지 URL"),
+                                fieldWithPath("profileImage.thumbnailImageUrl").type(JsonFieldType.STRING).description("썸네일 이미지 URL"),
+                                fieldWithPath("nickName").type(JsonFieldType.STRING).description("닉네임"),
+                                fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
+                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대"),
+                                fieldWithPath("major").type(JsonFieldType.STRING).description("학과"),
+                                fieldWithPath("militaryStatus").type(JsonFieldType.BOOLEAN).description("병역필"),
+                                fieldWithPath("graduationStatus").type(JsonFieldType.BOOLEAN).description("졸업유무"),
+                                fieldWithPath("region").type(JsonFieldType.STRING).description("지역").optional(),
+                                fieldWithPath("height").type(JsonFieldType.STRING).description("키").optional(),
+                                fieldWithPath("bodyType").type(JsonFieldType.STRING).description("체형").optional(),
+                                fieldWithPath("mbti").type(JsonFieldType.STRING).description("MBTI").optional(),
+                                fieldWithPath("introduction").type(JsonFieldType.STRING).description("소개").optional(),
+                                fieldWithPath("hashTagList").type(JsonFieldType.ARRAY).description("해시태그").optional(),
+                                fieldWithPath("profilePrivate").type(JsonFieldType.BOOLEAN).description("공개 여부")
+                        )));
+
+        then(profileService).should(times(1)).findProfile(any());
     }
 }

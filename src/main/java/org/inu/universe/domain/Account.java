@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.inu.universe.domain.status.AccountRole;
-import org.inu.universe.domain.status.AccountStatus;
 
 import javax.persistence.*;
 
@@ -25,16 +24,13 @@ public class Account extends BaseEntity {
     private String refreshToken;
 
     @Enumerated(EnumType.STRING)
-    private AccountStatus status;
-
-    @Enumerated(EnumType.STRING)
     private AccountRole role;
 
-    @OneToOne(fetch = FetchType.LAZY)    // 주 테이블에 외래 키. 단방향
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)    // 주 테이블에 외래 키. 단방향
     @JoinColumn(name = "email_id")
     private Email email;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
@@ -42,7 +38,6 @@ public class Account extends BaseEntity {
         Account account = new Account();
         account.email = email;
         account.password = password;
-        account.status = AccountStatus.ACTIVE;
         account.role = AccountRole.ROLE_USER;
         return account;
     }
@@ -51,7 +46,6 @@ public class Account extends BaseEntity {
         Account account = new Account();
         account.email = email;
         account.password = password;
-        account.status = AccountStatus.ACTIVE;
         account.role = AccountRole.ROLE_ADMIN;
         return account;
     }

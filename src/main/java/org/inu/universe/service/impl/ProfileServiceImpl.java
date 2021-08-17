@@ -84,7 +84,7 @@ public class ProfileServiceImpl implements ProfileService {
             throw new ProfileException("이미 존재하는 닉네임입니다.");
         }
 
-        Profile profile = Profile.saveProfile(request.getNickName(), request.getAge(), request.getGender(), request.getMajor());
+        Profile profile = Profile.saveProfile(request.getNickName(), request.getAge(), request.getGender(),request.getCollege(), request.getMajor());
         Profile savedProfile = profileRepository.save(profile);
         findAccount.setProfile(savedProfile);
 
@@ -95,10 +95,7 @@ public class ProfileServiceImpl implements ProfileService {
     해시태그 선택
     */
     @Override
-    public List<HashTagResponse> findHashTag(Long accountId, HashTagSaveRequest request) {
-
-//        Account findAccount = accountRepository.findById(accountId)
-//                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
+    public List<HashTagResponse> findHashTag(HashTagSaveRequest request) {
 
         List<String> hashTagList = request.getHashTagList();
         // - 해시태그 최대 3개.
@@ -122,11 +119,8 @@ public class ProfileServiceImpl implements ProfileService {
      */
     @Override
     @Transactional
-    public ProfileResponse updateProfile(Long accountId, Long profileId, MultipartFile image, ProfileUpdateRequest request) {
+    public ProfileResponse updateProfile(Long profileId, MultipartFile image, ProfileUpdateRequest request) {
 
-//        Account findAccount = accountRepository.findById(accountId)
-//                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
-//
         Profile findProfile = profileRepository.findById(profileId)
                 .orElseThrow(() -> new ProfileException("존재하지 않는 게시글입니다."));
 
@@ -155,8 +149,8 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         // - 프로필 수정 및 설정 추가
-        findProfile.updateProfile(imageObject, request.getNickName(), request.getAge(), request.getGender(), request.getMajor(), request.isMilitaryStatus(),
-                request.isGraduationStatus(), request.getRegion(), request.getHeight(), request.getBodyType(), request.getMbti(), request.getIntroduction());
+        findProfile.updateProfile(imageObject, request.getNickName(), request.getAge(), request.getGender(), request.getCollege(), request.getMajor(), request.isMilitaryStatus(),
+                request.isGraduationStatus(), request.getRegion(), request.getHeight(), request.getBodyType(), request.getMbti(), request.getIntroduction(), request.isProfilePrivate());
 
         return ProfileResponse.from(findProfile);
     }
@@ -165,17 +159,17 @@ public class ProfileServiceImpl implements ProfileService {
     프로필 조회
      */
     @Override
-    public ProfileResponse findProfile(Long accountId, Long profileId) {
-//        Account findAccount = accountRepository.findById(accountId)
-//                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
-
-//        Profile findProfile = profileRepository.findById(profileId)
-//                .orElseThrow(() -> new ProfileException("존재하지 않는 게시글입니다."));
+    public ProfileResponse findProfile(Long profileId) {
 
         Profile findProfile = profileQueryRepository.findWithProfileTags(profileId);
 
         if (findProfile == null) {
             throw new ProfileException("존재하지 않는 프로필입니다.");
+        }
+
+        if (findProfile.isProfilePrivate()) {
+            Profile privateProfile = Profile.setPrivate(findProfile.getId(), findProfile.getNickName(), findProfile.getAge(), findProfile.getGender(), findProfile.getCollege(), findProfile.getMajor());
+            return ProfileResponse.from(privateProfile);
         }
 
         return ProfileResponse.from(findProfile);

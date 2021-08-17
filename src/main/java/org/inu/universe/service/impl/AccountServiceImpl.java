@@ -7,7 +7,6 @@ import org.inu.universe.domain.Account;
 import org.inu.universe.exception.EmailException;
 import org.inu.universe.exception.AccountException;
 import org.inu.universe.model.account.AccountLoginRequest;
-import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.account.AccountSaveRequest;
 import org.inu.universe.model.token.TokenDto;
 import org.inu.universe.repository.EmailRepository;
@@ -16,6 +15,8 @@ import org.inu.universe.service.AccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.annotation.PostConstruct;
 
 
 @Service
@@ -32,13 +33,12 @@ public class AccountServiceImpl implements AccountService {
     Admin 계정 생성
      */
 
-
     /*
     회원 가입
      */
     @Override
     @Transactional
-    public AccountResponse saveAccount(AccountSaveRequest request) {
+    public void saveAccount(AccountSaveRequest request) {
 
         // - 비밀번호와 재확인 비밀번호 일치 확인
         reconfirmPassword(request.getPassword(), request.getPassword2());
@@ -54,7 +54,7 @@ public class AccountServiceImpl implements AccountService {
 
         // - 회원 저장
         Account account = Account.saveAccount(email, passwordEncoder.encode(request.getPassword()));
-        return AccountResponse.from(accountRepository.save(account));
+        accountRepository.save(account);
     }
 
     /*
@@ -112,6 +112,14 @@ public class AccountServiceImpl implements AccountService {
 //        TokenDto tokenDto = TokenDto.from(accessToken, refreshToken);
 
         return accessToken;
+    }
+
+    @Override
+    @Transactional
+    public void deleteAccountByAdmin(Long accountId) {
+        Account findAccount = accountRepository.findById(accountId)
+                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
+        accountRepository.delete(findAccount);
     }
 
     // 비밀번호 확인

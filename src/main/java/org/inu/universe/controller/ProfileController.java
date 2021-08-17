@@ -33,23 +33,23 @@ public class ProfileController {
     해시태그 선택
      */
     @GetMapping("/profile/hashTags")
-    public ResponseEntity<List<HashTagResponse>> findHashTag(@LoginAccount Long accountId, @RequestBody @Valid HashTagSaveRequest request) {
-        return ResponseEntity.ok(profileService.findHashTag(accountId, request));
+    public ResponseEntity<List<HashTagResponse>> findHashTag(@RequestBody @Valid HashTagSaveRequest request) {
+        return ResponseEntity.ok(profileService.findHashTag(request));
     }
 
     /*
     프로필 수정 ( 닉네임, 나이, 성별, 학과 ) 및 설정 추가 ( 프로필 사진, 병역필, 졸업유무, 지역, 키, 체형, mbti, 소개, 해시태그 )
      */
     @PatchMapping("/profile/{profileId}")
-    public ResponseEntity<ProfileResponse> updateProfile(@LoginAccount Long accountId, @PathVariable Long profileId, @RequestPart(required = false) MultipartFile image, @RequestPart @Valid ProfileUpdateRequest request) {
-        return ResponseEntity.ok(profileService.updateProfile(accountId, profileId, image, request));
+    public ResponseEntity<ProfileResponse> updateProfile(@PathVariable Long profileId, @RequestPart(required = false) MultipartFile image, @RequestPart @Valid ProfileUpdateRequest request) {
+        return ResponseEntity.ok(profileService.updateProfile(profileId, image, request));
     }
 
     /*
     프로필 조회
      */
     @GetMapping("/profile/{profileId}")
-    public ResponseEntity<ProfileResponse> findProfile(@LoginAccount Long accountId, @PathVariable Long profileId) {
-        return ResponseEntity.ok(profileService.findProfile(accountId, profileId));
+    public ResponseEntity<ProfileResponse> findProfile(@PathVariable Long profileId) {
+        return ResponseEntity.ok(profileService.findProfile(profileId));
     }
 }

@@ -25,6 +25,8 @@ public class ProfileResponse {
 
     private String gender;
 
+    private String college;
+
     private String major;
 
     private boolean militaryStatus;
@@ -43,6 +45,8 @@ public class ProfileResponse {
 
     private List<String> hashTagList;
 
+    private boolean profilePrivate;
+
     public static ProfileResponse from(Profile profile) {
         ProfileResponse profileResponse = new ProfileResponse();
         profileResponse.id = profile.getId();
@@ -50,6 +54,7 @@ public class ProfileResponse {
         profileResponse.nickName = profile.getNickName();
         profileResponse.age = profile.getAge();
         profileResponse.gender = profile.getGender();
+        profileResponse.college = profile.getCollege();
         profileResponse.major = profile.getMajor();
         profileResponse.militaryStatus = profile.isMilitaryStatus();
         profileResponse.graduationStatus = profile.isGraduationStatus();
@@ -59,6 +64,7 @@ public class ProfileResponse {
         profileResponse.mbti = profile.getMbti();
         profileResponse.introduction = profile.getIntroduction();
         profileResponse.hashTagList = profile.getProfileTagList().stream().map(tag -> tag.getHashTag().getName()).collect(Collectors.toList());
+        profileResponse.profilePrivate = profile.isProfilePrivate();
         return  profileResponse;
     }
 

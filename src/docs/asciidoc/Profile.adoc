@@ -44,7 +44,9 @@ include::{snippets}/profile/hashTag/response-fields.adoc[]
 
 [[api]]
 == Profile 수정
+
 HTTP Header로 Access Token,
+
 프로필 사진(image)와 수정 사항 요청 -> 프로필 수정
 
 
@@ -61,9 +63,22 @@ include::{snippets}/profile/update/http-response.adoc[]
 include::{snippets}/profile/update/response-fields.adoc[]
 
 [[api]]
-== Profile 조회
+== Profile 조회 (public)
 ===== REQUEST
-include::{snippets}/profile/findProfile/http-request.adoc[]
+include::{snippets}/profile/findProfile(public)/request-headers.adoc[]
+include::{snippets}/profile/findProfile(public)/http-request.adoc[]
+include::{snippets}/profile/findProfile(public)/path-parameters.adoc[]
+
 ===== RESPONSE
-include::{snippets}/profile/findProfile/http-response.adoc[]
-include::{snippets}/profile/findProfile/response-fields.adoc[]
+include::{snippets}/profile/findProfile(public)/http-response.adoc[]
+include::{snippets}/profile/findProfile(public)/response-fields.adoc[]
+
+[[api]]
+== Profile 조회 (private)
+===== REQUEST
+include::{snippets}/profile/findProfile(private)/request-headers.adoc[]
+include::{snippets}/profile/findProfile(private)/http-request.adoc[]
+include::{snippets}/profile/findProfile(private)/path-parameters.adoc[]
+===== RESPONSE
+include::{snippets}/profile/findProfile(private)/http-response.adoc[]
+include::{snippets}/profile/findProfile(public)/response-fields.adoc[]

@@ -30,6 +30,8 @@ public class Profile extends BaseEntity{
 
     private String gender;
 
+    private String college;
+
     private String major;
 
     private boolean militaryStatus;
@@ -46,23 +48,38 @@ public class Profile extends BaseEntity{
 
     private String introduction;
 
+    private boolean profilePrivate;
+
     @OneToMany(mappedBy = "profile", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProfileTag> profileTagList = new ArrayList<>();
 
-    public static Profile saveProfile(String nickName, Integer age, String gender, String major) {
+    public static Profile saveProfile(String nickName, Integer age, String gender, String college, String major) {
         Profile profile = new Profile();
         profile.nickName = nickName;
         profile.age = age;
         profile.gender = gender;
+        profile.college = college;
         profile.major = major;
         return profile;
     }
 
-    public void updateProfile(ProfileImage image, String nickName, Integer age, String gender, String major, boolean militaryStatus, boolean graduationStatus, String region, String height, String bodyType, String mbti, String introduction) {
+    public static Profile setPrivate(Long id, String nickName, Integer age, String gender, String college, String major) {
+        Profile profile = new Profile();
+        profile.id = id;
+        profile.nickName = nickName;
+        profile.age = age;
+        profile.gender = gender;
+        profile.college = college;
+        profile.major = major;
+        return profile;
+    }
+
+    public void updateProfile(ProfileImage image, String nickName, Integer age, String gender, String college, String major, boolean militaryStatus, boolean graduationStatus, String region, String height, String bodyType, String mbti, String introduction, boolean profilePrivate) {
         this.profileImage = image;
         this.nickName = nickName;
         this.age = age;
         this.gender = gender;
+        this.college = college;
         this.major = major;
         this.militaryStatus = militaryStatus;
         this.graduationStatus = graduationStatus;
@@ -71,5 +88,6 @@ public class Profile extends BaseEntity{
         this.bodyType = bodyType;
         this.mbti = mbti;
         this.introduction = introduction;
+        this.profilePrivate = profilePrivate;
     }
 }

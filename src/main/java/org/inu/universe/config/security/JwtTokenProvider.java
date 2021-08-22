@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
+import javax.validation.Valid;
 import java.util.Base64;
 import java.util.Date;
 
@@ -33,6 +34,9 @@ public class JwtTokenProvider {
     @Value("${spring.jwt.secretKey}")
     private String secretKey;
 
+    @Value("${spring.jwt.secretRefreshKey}")
+    private String secretRefreshKey;
+
     private Long accessTokenValidTime = 1000L * 60 * 60;             // accessToken 유효 시간 ( 1시간 ) / [탈취당한 토큰의 무효화를 위해 짧음]
     private Long refreshTokenValidTime = 1000L * 60 * 60 * 24 * 7;  // refreshToken 유효 시간 ( 24시간 * 7 )
 
@@ -42,6 +46,7 @@ public class JwtTokenProvider {
     @PostConstruct
     protected void init() {
         secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());     // secretKey 암호화
+        secretRefreshKey = Base64.getEncoder().encodeToString(secretRefreshKey.getBytes());
     }
 
     /*
@@ -72,7 +77,7 @@ public class JwtTokenProvider {
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(new Date(now.getTime() + refreshTokenValidTime))
-                .signWith(SignatureAlgorithm.HS256, secretKey)
+                .signWith(SignatureAlgorithm.HS256, secretRefreshKey)
                 .compact();
     }
 
@@ -86,6 +91,15 @@ public class JwtTokenProvider {
         try {
             Jws<Claims> claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(jwtToken);  // payload
             return !claims.getBody().getExpiration().before(new Date());  // 지금 시간보다 유효 시간이 과거인지 검증(과거이면 true) -> false ( 시간이 유효한 지 검증 )
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    public boolean validateRefreshToken(String jwtToken) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(secretRefreshKey).parseClaimsJws(jwtToken);
+            return !claims.getBody().getExpiration().before(new Date());
         } catch (Exception e) {
             return false;
         }

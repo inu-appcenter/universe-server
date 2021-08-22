@@ -53,6 +53,7 @@ HTTP Header로 Access Token,
 ===== REQUEST
 include::{snippets}/profile/update/request-headers.adoc[]
 include::{snippets}/profile/update/http-request.adoc[]
+include::{snippets}/profile/update/path-parameters.adoc[]
 include::{snippets}/profile/update/request-parts.adoc[]
 
 - [프로필 수정 요청(request) fields]

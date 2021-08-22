@@ -50,10 +50,9 @@ public class AccountController {
     RefreshToken을 통해 AccessToken 재발급  // RefreshToken 만료 시, /account/login
      */
     @PostMapping("/account/reissue")
-    public ResponseEntity reissue(@LoginAccount Long accountId, @RequestHeader(HttpHeaders.AUTHORIZATION) String refreshToken) {
+    public ResponseEntity reissue(@RequestHeader(HttpHeaders.AUTHORIZATION) String refreshToken) {
 
-
-        String reissueToken = accountService.reissue(accountId, refreshToken.substring(7));
+        String reissueToken = accountService.reissue(refreshToken.substring(7));
 
         return ResponseEntity.ok()
                 .header("accessToken", reissueToken)

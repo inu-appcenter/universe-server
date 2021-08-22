@@ -124,7 +124,7 @@ class AccountControllerTest {
     @DisplayName("RefreshToken 재발급")
     void reissue() throws Exception {
 
-        given(accountService.reissue(any(), any())).willReturn(REISSUE_ACCESS_TOKEN);
+        given(accountService.reissue(any())).willReturn(REISSUE_ACCESS_TOKEN);
         when(loginAccountArgumentResolver.resolveArgument(
                 (MethodParameter) notNull()
                 , (ModelAndViewContainer) notNull()
@@ -143,6 +143,6 @@ class AccountControllerTest {
                                 headerWithName("accessToken").description("새로 발급된 AccessToken")
                         )));
 
-        then(accountService).should(times(1)).reissue(any(), any());
+        then(accountService).should(times(1)).reissue(any());
     }
 }

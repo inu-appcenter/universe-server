@@ -30,7 +30,7 @@ public class EmailController{
     /*
     이메일 인증
      */
-    @GetMapping("/email/auth")
+    @PostMapping("/email/auth")
     public ResponseEntity authEmail(@RequestBody @Valid EmailSaveRequest request) {
         emailService.authEmail(request);
         return ResponseEntity.ok().build();

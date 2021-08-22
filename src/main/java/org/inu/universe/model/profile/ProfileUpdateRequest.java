@@ -31,10 +31,6 @@ public class ProfileUpdateRequest {
     @NotBlank(message = "학과(필수)")
     private String major;
 
-    private boolean militaryStatus;
-
-    private boolean graduationStatus;
-
     private String region;
 
     private String height;

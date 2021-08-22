@@ -34,6 +34,10 @@ public class Account extends BaseEntity {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
+    @JoinColumn(name = "idealType_id")
+    private IdealType idealType;
+
     public static Account saveAccount(Email email, String password) {
         Account account = new Account();
         account.email = email;
@@ -56,5 +60,9 @@ public class Account extends BaseEntity {
 
     public void setProfile(Profile profile) {
         this.profile = profile;
+    }
+
+    public void setIdealType(IdealType idealType) {
+        this.idealType = idealType;
     }
 }

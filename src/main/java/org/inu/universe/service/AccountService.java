@@ -11,7 +11,7 @@ public interface AccountService {
 
     TokenDto loginAccount(AccountLoginRequest request);
 
-    String reissue(Long accountId, String refreshToken);
+    String reissue(String refreshToken);
 
     void deleteAccountByAdmin(Long accountId);
 }

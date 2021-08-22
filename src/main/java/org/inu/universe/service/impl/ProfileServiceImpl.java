@@ -149,8 +149,7 @@ public class ProfileServiceImpl implements ProfileService {
         }
 
         // - 프로필 수정 및 설정 추가
-        findProfile.updateProfile(imageObject, request.getNickName(), request.getAge(), request.getGender(), request.getCollege(), request.getMajor(), request.isMilitaryStatus(),
-                request.isGraduationStatus(), request.getRegion(), request.getHeight(), request.getBodyType(), request.getMbti(), request.getIntroduction(), request.isProfilePrivate());
+        findProfile.updateProfile(imageObject, request.getNickName(), request.getAge(), request.getGender(), request.getCollege(), request.getMajor(), request.getRegion(), request.getHeight(), request.getBodyType(), request.getMbti(), request.getIntroduction(), request.isProfilePrivate());
 
         return ProfileResponse.from(findProfile);
     }

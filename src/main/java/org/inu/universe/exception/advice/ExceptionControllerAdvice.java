@@ -16,12 +16,12 @@ import java.util.Map;
 public class ExceptionControllerAdvice {
 
     @ExceptionHandler({MethodArgumentNotValidException.class})
-    public ExceptionResponse exceptionHandling(MethodArgumentNotValidException e) {
+    public ResponseEntity<ExceptionResponse> exceptionHandling(MethodArgumentNotValidException e) {
 
         Map<String, String> errors = new HashMap<>();
         e.getBindingResult().getAllErrors()
                 .forEach(error -> errors.put(((FieldError) error).getField(), error.getDefaultMessage()));
-        return new ExceptionResponse(null, errors);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ExceptionResponse(null, errors));
     }
 
     // 권한 오류
@@ -38,7 +38,7 @@ public class ExceptionControllerAdvice {
                 .body(new ExceptionResponse(e.getMessage(), null));
     }
 
-    @ExceptionHandler({EmailException.class, AccountException.class, ProfileException.class, HashTagException.class, IllegalStateException.class})
+    @ExceptionHandler({EmailException.class, AccountException.class, ProfileException.class, HashTagException.class, IdealTypeException.class, IllegalStateException.class})
     public ResponseEntity InvalidReqExceptionHandling(RuntimeException e) {
         String message = e.getMessage();
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(message);

@@ -10,6 +10,8 @@ import org.inu.universe.model.email.EmailSaveRequest;
 import org.inu.universe.model.email.EmailRequest;
 import org.inu.universe.model.hashtag.HashTagResponse;
 import org.inu.universe.model.hashtag.HashTagSaveRequest;
+import org.inu.universe.model.idealType.IdealTypeRequest;
+import org.inu.universe.model.idealType.IdealTypeResponse;
 import org.inu.universe.model.profile.ProfileResponse;
 import org.inu.universe.model.profile.ProfileSaveRequest;
 import org.inu.universe.model.profile.ProfileUpdateRequest;
@@ -36,11 +38,11 @@ public class TestFixture {
     public static final Email EMAIL
             = new Email(1L, "a@inu.ac.kr");
 
-    public static final Account ACCOUNT
-            = new Account(1L,  "a", null, AccountRole.ROLE_USER, EMAIL,null);
-
-    public static final Account ACCOUNT_2
-            = new Account(1L,  "a", "abcd", AccountRole.ROLE_USER, EMAIL, null);
+//    public static final Account ACCOUNT
+//            = new Account(1L,  "a", null, AccountRole.ROLE_USER, EMAIL,null, null);
+//
+//    public static final Account ACCOUNT_2
+//            = new Account(1L,  "a", "abcd", AccountRole.ROLE_USER, EMAIL, null, null);
 
     public static final TokenDto TOKEN_DTO
             = new TokenDto("abcdefg", "ABCDEFG");
@@ -64,21 +66,33 @@ public class TestFixture {
             = new HashTagResponse(3L, "#운동");
 
     public static final ProfileUpdateRequest PROFILE_UPDATE_REQUEST
-            = new ProfileUpdateRequest("ab", 21, "성별","단과대", "학과", true, true, "지역", "키", "체형",
+            = new ProfileUpdateRequest("ab", 21, "성별","단과대", "학과", "지역", "키", "체형",
             "MBTI", "소개", asList("#만화", "#취준", "#운동"), false);
 
     public static final ProfileImage PROFILE_IMAGE
             = new ProfileImage("저장된 이름", "이미지 URL", "썸네일 이미지 URL");
 
     public static final ProfileResponse PROFILE_RESPONSE
-            = new ProfileResponse(1L, null, "a", 20, "성별", "단과대", "학과", false, false,
+            = new ProfileResponse(1L, null, "a", 20, "성별", "단과대", "학과",
             null, null, null, null, null, new ArrayList<>(), false);
 
     public static final ProfileResponse PROFILE_RESPONSE_2
-            = new ProfileResponse(1L, PROFILE_IMAGE, "ab", 21, "성별", "단과대", "학과", true, true, "지역", "키",
+            = new ProfileResponse(1L, PROFILE_IMAGE, "ab", 21, "성별", "단과대", "학과", "지역", "키",
             "체형", "MBTI", "소개", asList("#만화", "#취준", "#운동"), false);
 
     public static final ProfileResponse PROFILE_RESPONSE_3
-            = new ProfileResponse(1L, null, "a", 20, "성별", "단과대", "학과", false, false,
+            = new ProfileResponse(1L, null, "a", 20, "성별", "단과대", "학과",
             null, null, null, null, null, new ArrayList<>(), true);
+
+    public static final IdealTypeRequest IDEAL_TYPE_REQUEST
+            = new IdealTypeRequest("지역", "성별", 20, "단과대");
+
+    public static final IdealTypeResponse IDEAL_TYPE_RESPONSE
+            = new IdealTypeResponse(1L, "지역", "성별", 20, "단과대");
+
+    public static final IdealTypeRequest IDEAL_TYPE_REQUEST_2
+            = new IdealTypeRequest("지역.", "성별.", 21, "단과대.");
+
+    public static final IdealTypeResponse IDEAL_TYPE_RESPONSE_2
+            = new IdealTypeResponse(1L, "지역.", "성별.", 21, "단과대.");
 }

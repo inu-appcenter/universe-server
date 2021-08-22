@@ -1,0 +1,42 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= IDEALTYPE API GUIDE
+:doctype: idealType
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== IdealType 생성
+HTTP Header로 Access Token,
+
+HTTP Body로 지역, 성별, 나이, 단과대, 병역필를 담아 요청 -> 원하는 상대 설정
+
+===== REQUEST
+include::{snippets}/idealType/save/request-headers.adoc[]
+include::{snippets}/idealType/save/http-request.adoc[]
+include::{snippets}/idealType/save/request-fields.adoc[]
+
+===== RESPONSE
+include::{snippets}/idealType/save/http-response.adoc[]
+include::{snippets}/idealType/save/response-fields.adoc[]
+
+== IdealType 수정
+HTTP Header로 Access Token,
+
+HTTP Body로 지역, 성별, 나이, 단과대, 병역필를 담아 요청 -> 원하는 상대 수정
+
+===== REQUEST
+include::{snippets}/idealType/update/request-headers.adoc[]
+include::{snippets}/idealType/update/http-request.adoc[]
+include::{snippets}/idealType/update/path-parameters.adoc[]
+include::{snippets}/idealType/update/request-fields.adoc[]
+
+===== RESPONSE
+include::{snippets}/idealType/update/http-response.adoc[]
+include::{snippets}/idealType/update/response-fields.adoc[]

@@ -58,6 +58,11 @@ public class EmailServiceImpl implements EmailService {
             throw new EmailException("인증 번호가 일치하지 않습니다.");
         }
 
+        // - 이미 인증된 이메일인 경우
+        if (emailRepository.findByAddress(request.getAddress()).isPresent()) {
+            return emailRepository.findByAddress(request.getAddress()).get();
+        }
+
         // - 이메일 저장
         Email email = Email.saveEmail(request.getAddress());
 

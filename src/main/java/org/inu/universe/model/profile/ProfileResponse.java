@@ -29,10 +29,6 @@ public class ProfileResponse {
 
     private String major;
 
-    private boolean militaryStatus;
-
-    private boolean graduationStatus;
-
     private String region;
 
     private String height;
@@ -56,8 +52,6 @@ public class ProfileResponse {
         profileResponse.gender = profile.getGender();
         profileResponse.college = profile.getCollege();
         profileResponse.major = profile.getMajor();
-        profileResponse.militaryStatus = profile.isMilitaryStatus();
-        profileResponse.graduationStatus = profile.isGraduationStatus();
         profileResponse.region = profile.getRegion();
         profileResponse.height = profile.getHeight();
         profileResponse.bodyType = profile.getBodyType();

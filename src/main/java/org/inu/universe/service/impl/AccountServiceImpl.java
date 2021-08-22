@@ -33,6 +33,7 @@ public class AccountServiceImpl implements AccountService {
     Admin 계정 생성
      */
 
+
     /*
     회원 가입
      */
@@ -91,25 +92,24 @@ public class AccountServiceImpl implements AccountService {
      */
     @Override
     @Transactional
-    public String reissue(Long accountId, String refreshToken) {
+    public String reissue(String refreshToken) {
 
-        Account account = accountRepository.findById(accountId)
-                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
+        Account findAccount = accountRepository.findByRefreshToken(refreshToken)
+                .orElseThrow(() -> new AccountException("계정의 RefreshToken과 일치하지 않습니다."));
+
 
         // - DB의 refreshToken과 일치하는지 확인
-        if (!account.getRefreshToken().equals(refreshToken)) {
-            throw new AccountException("계정의 RefreshToken과 일치하지 않습니다.");
-        }
+//        if (!account.getRefreshToken().equals(refreshToken)) {
+//            throw new AccountException("계정의 RefreshToken과 일치하지 않습니다.");
+//        }
 
         // - 해당 refreshToken이 유효한지 확인
-        if (!jwtTokenProvider.validateToken(refreshToken)) {
+        if (!jwtTokenProvider.validateRefreshToken(refreshToken)) {
             throw new AccountException("RefreshToken이 유효하지 않습니다.");
         }
 
         // - AccessToken 재발급
-        String accessToken = jwtTokenProvider.createAccessToken(String.valueOf(accountId));
-
-//        TokenDto tokenDto = TokenDto.from(accessToken, refreshToken);
+        String accessToken = jwtTokenProvider.createAccessToken(String.valueOf(findAccount.getId()));
 
         return accessToken;
     }

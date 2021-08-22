@@ -90,7 +90,7 @@ class EmailControllerTest {
 
         given(emailService.authEmail(any())).willReturn(EMAIL);
 
-        mockMvc.perform(get("/email/auth")
+        mockMvc.perform(post("/email/auth")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(body)
                 .accept(MediaType.APPLICATION_JSON_VALUE))

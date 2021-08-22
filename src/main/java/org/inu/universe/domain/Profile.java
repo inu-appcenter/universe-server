@@ -34,10 +34,6 @@ public class Profile extends BaseEntity{
 
     private String major;
 
-    private boolean militaryStatus;
-
-    private boolean graduationStatus;
-
     private String region;
 
     private String height;
@@ -74,15 +70,13 @@ public class Profile extends BaseEntity{
         return profile;
     }
 
-    public void updateProfile(ProfileImage image, String nickName, Integer age, String gender, String college, String major, boolean militaryStatus, boolean graduationStatus, String region, String height, String bodyType, String mbti, String introduction, boolean profilePrivate) {
+    public void updateProfile(ProfileImage image, String nickName, Integer age, String gender, String college, String major, String region, String height, String bodyType, String mbti, String introduction, boolean profilePrivate) {
         this.profileImage = image;
         this.nickName = nickName;
         this.age = age;
         this.gender = gender;
         this.college = college;
         this.major = major;
-        this.militaryStatus = militaryStatus;
-        this.graduationStatus = graduationStatus;
         this.region = region;
         this.height = height;
         this.bodyType = bodyType;

@@ -7,6 +7,7 @@ import org.inu.universe.domain.Account;
 import org.inu.universe.exception.EmailException;
 import org.inu.universe.exception.AccountException;
 import org.inu.universe.model.account.AccountLoginRequest;
+import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.account.AccountSaveRequest;
 import org.inu.universe.model.token.TokenDto;
 import org.inu.universe.repository.EmailRepository;
@@ -16,7 +17,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.PostConstruct;
+import java.util.List;
 
 
 @Service
@@ -94,14 +95,9 @@ public class AccountServiceImpl implements AccountService {
     @Transactional
     public String reissue(String refreshToken) {
 
+        // - DB의 token 확인
         Account findAccount = accountRepository.findByRefreshToken(refreshToken)
                 .orElseThrow(() -> new AccountException("계정의 RefreshToken과 일치하지 않습니다."));
-
-
-        // - DB의 refreshToken과 일치하는지 확인
-//        if (!account.getRefreshToken().equals(refreshToken)) {
-//            throw new AccountException("계정의 RefreshToken과 일치하지 않습니다.");
-//        }
 
         // - 해당 refreshToken이 유효한지 확인
         if (!jwtTokenProvider.validateRefreshToken(refreshToken)) {
@@ -114,6 +110,9 @@ public class AccountServiceImpl implements AccountService {
         return accessToken;
     }
 
+    /*
+    계정 삭제
+     */
     @Override
     @Transactional
     public void deleteAccountByAdmin(Long accountId) {
@@ -122,9 +121,35 @@ public class AccountServiceImpl implements AccountService {
         accountRepository.delete(findAccount);
     }
 
+    /*
+    Id 조회
+     */
+    @Override
+    public AccountResponse findId(Long accountId) {
+        Account findAccount = accountRepository.findById(accountId)
+                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
+
+        String account_id = findAccount.getId().toString();
+        String profile_id = "";
+        String ideal_type_id = "";
+
+        try {
+            profile_id = findAccount.getProfile().getId().toString();
+        } catch (NullPointerException e) {
+            profile_id = "empty";
+        }
+
+        try {
+            ideal_type_id = findAccount.getIdealType().getId().toString();
+        } catch (NullPointerException e) {
+            ideal_type_id = "empty";
+        }
+
+        return AccountResponse.from(account_id, profile_id, ideal_type_id);
+    }
+
     // 비밀번호 확인
     private void reconfirmPassword(String password, String password2) {
-
         if (!password.equals(password2)) {
             throw new AccountException("비밀번호가 서로 일치하지 않습니다.");
         }

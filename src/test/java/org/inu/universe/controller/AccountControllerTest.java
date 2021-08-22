@@ -34,10 +34,10 @@ import static org.mockito.Mockito.*;
 import static org.springframework.restdocs.headers.HeaderDocumentation.*;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
-import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
-import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -144,5 +144,36 @@ class AccountControllerTest {
                         )));
 
         then(accountService).should(times(1)).reissue(any());
+    }
+
+    @Test
+    @DisplayName("회원 ID, 프로필 ID, 원하는 상대 ID 조회")
+    public void findId() throws Exception {
+
+        String response = objectMapper.writeValueAsString(ACCOUNT_RESPONSE);
+
+        given(accountService.findId(any())).willReturn(ACCOUNT_RESPONSE);
+        when(loginAccountArgumentResolver.resolveArgument(
+                (MethodParameter) notNull()
+                , (ModelAndViewContainer) notNull()
+                , (NativeWebRequest) notNull()
+                , (WebDataBinderFactory) notNull()
+        )).thenReturn(1L);
+
+        mockMvc.perform(get("/account")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(response))
+                .andDo(document("account/findId",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
+                        ),
+                        responseFields(
+                                fieldWithPath("accountId").description("계정 Id"),
+                                fieldWithPath("profileId").description("프로필 Id"),
+                                fieldWithPath("idealTypeId").description("원하는 상대 Id")
+                        )));
+
+        then(accountService).should(times(1)).findId(any());
     }
 }

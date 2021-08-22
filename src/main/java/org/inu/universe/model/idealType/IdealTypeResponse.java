@@ -16,18 +16,17 @@ public class IdealTypeResponse {
 
     private String gender;
 
-    private Integer age;
+    private Integer age1;
 
-    private String college;
-
+    private Integer age2;
 
     public static IdealTypeResponse from(IdealType idealType) {
         IdealTypeResponse idealTypeResponse = new IdealTypeResponse();
         idealTypeResponse.id = idealType.getId();
         idealTypeResponse.region = idealType.getRegion();
         idealTypeResponse.gender = idealType.getGender();
-        idealTypeResponse.age = idealType.getAge();
-        idealTypeResponse.college = idealType.getCollege();
+        idealTypeResponse.age1 = idealType.getAge1();
+        idealTypeResponse.age2 = idealType.getAge2();
         return idealTypeResponse;
     }
 }

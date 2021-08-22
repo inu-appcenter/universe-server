@@ -19,4 +19,5 @@ public class ProfileQueryRepository {
                 .where(QProfile.profile.id.eq(profileId))
                 .fetchOne();
     }
+
 }

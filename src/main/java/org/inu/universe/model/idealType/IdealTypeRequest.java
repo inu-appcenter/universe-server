@@ -19,8 +19,9 @@ public class IdealTypeRequest {
     private String gender;
 
     @NotNull(message = "나이(필수)")
-    private Integer age;
+    private Integer age1;
 
-    @NotBlank(message = "단과대(필수)")
-    private String college;
+    @NotNull(message = "나이(필수)")
+    private Integer age2;
+
 }

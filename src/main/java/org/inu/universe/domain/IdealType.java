@@ -22,23 +22,23 @@ public class IdealType {
 
     private String gender;              // 여성, 남성, 무관
 
-    private Integer age;
+    private Integer age1;
 
-    private String college;
-
-    public static IdealType saveIdealType(String region, String gender, Integer age, String college) {
+    private Integer age2;
+    
+    public static IdealType saveIdealType(String region, String gender, Integer age1, Integer age2) {
         IdealType idealType = new IdealType();
         idealType.region = region;
         idealType.gender = gender;
-        idealType.age = age;
-        idealType.college = college;
+        idealType.age1 = age1;
+        idealType.age2 = age2;
         return idealType;
     }
 
-    public void updateIdealType(String region, String gender, Integer age, String college) {
+    public void updateIdealType(String region, String gender, Integer age1, Integer age2) {
         this.region = region;
         this.gender = gender;
-        this.age = age;
-        this.college = college;
+        this.age1 = age1;
+        this.age2 = age2;
     }
 }

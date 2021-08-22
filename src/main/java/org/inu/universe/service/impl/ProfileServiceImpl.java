@@ -53,21 +53,21 @@ public class ProfileServiceImpl implements ProfileService {
     @Value("${cloud.aws.s3.thumbnailBucket}")
     private String thumbnailBucket;
 
-    @PostConstruct
-    void init() {
-
-        List<HashTag> hashTagList = Arrays.asList(HashTag.saveHashTag("#만화"),
-                HashTag.saveHashTag("#취준"), HashTag.saveHashTag("#운동"),
-                HashTag.saveHashTag("#공부"), HashTag.saveHashTag("#유튜브"),
-                HashTag.saveHashTag("#민초단"), HashTag.saveHashTag("#패션"),
-                HashTag.saveHashTag("#요리"), HashTag.saveHashTag("#독서"),
-                HashTag.saveHashTag("#연애"), HashTag.saveHashTag("#강아지"),
-                HashTag.saveHashTag("#맛집"), HashTag.saveHashTag("#음악"),
-                HashTag.saveHashTag("#등산"),
-                HashTag.saveHashTag("#수영"));
-
-        hashTagRepository.saveAll(hashTagList);
-    }
+//    @PostConstruct
+//    void init() {
+//
+//        List<HashTag> hashTagList = Arrays.asList(HashTag.saveHashTag("#만화"),
+//                HashTag.saveHashTag("#취준"), HashTag.saveHashTag("#운동"),
+//                HashTag.saveHashTag("#공부"), HashTag.saveHashTag("#유튜브"),
+//                HashTag.saveHashTag("#민초단"), HashTag.saveHashTag("#패션"),
+//                HashTag.saveHashTag("#요리"), HashTag.saveHashTag("#독서"),
+//                HashTag.saveHashTag("#연애"), HashTag.saveHashTag("#강아지"),
+//                HashTag.saveHashTag("#맛집"), HashTag.saveHashTag("#음악"),
+//                HashTag.saveHashTag("#등산"),
+//                HashTag.saveHashTag("#수영"));
+//
+//        hashTagRepository.saveAll(hashTagList);
+//    }
 
     /*
     프로필 설정

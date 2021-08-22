@@ -5,6 +5,7 @@ import org.inu.universe.domain.Email;
 import org.inu.universe.domain.ProfileImage;
 import org.inu.universe.domain.status.AccountRole;
 import org.inu.universe.model.account.AccountLoginRequest;
+import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.account.AccountSaveRequest;
 import org.inu.universe.model.email.EmailSaveRequest;
 import org.inu.universe.model.email.EmailRequest;
@@ -85,14 +86,17 @@ public class TestFixture {
             null, null, null, null, null, new ArrayList<>(), true);
 
     public static final IdealTypeRequest IDEAL_TYPE_REQUEST
-            = new IdealTypeRequest("지역", "성별", 20, "단과대");
+            = new IdealTypeRequest("지역", "성별", 20, 20);
 
     public static final IdealTypeResponse IDEAL_TYPE_RESPONSE
-            = new IdealTypeResponse(1L, "지역", "성별", 20, "단과대");
+            = new IdealTypeResponse(1L, "지역", "성별", 20, 20);
 
     public static final IdealTypeRequest IDEAL_TYPE_REQUEST_2
-            = new IdealTypeRequest("지역.", "성별.", 21, "단과대.");
+            = new IdealTypeRequest("지역.", "성별.", 21, 21);
 
     public static final IdealTypeResponse IDEAL_TYPE_RESPONSE_2
-            = new IdealTypeResponse(1L, "지역.", "성별.", 21, "단과대.");
+            = new IdealTypeResponse(1L, "지역.", "성별.", 21, 21);
+
+    public static final AccountResponse ACCOUNT_RESPONSE
+            = new AccountResponse("1", "1", "1");
 }

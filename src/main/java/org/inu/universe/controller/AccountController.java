@@ -3,6 +3,7 @@ package org.inu.universe.controller;
 import lombok.RequiredArgsConstructor;
 import org.inu.universe.config.security.LoginAccount;
 import org.inu.universe.model.account.AccountLoginRequest;
+import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.account.AccountSaveRequest;
 import org.inu.universe.model.token.TokenDto;
 import org.inu.universe.service.AccountService;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 import javax.validation.Valid;
+import java.util.List;
 
 
 @RestController
@@ -57,5 +59,13 @@ public class AccountController {
         return ResponseEntity.ok()
                 .header("accessToken", reissueToken)
                 .build();
+    }
+
+    /*
+    회원 프로필 Id, 원하는 상대 Id 조회
+     */
+    @GetMapping("/account")
+    public ResponseEntity<AccountResponse> findId(@LoginAccount Long accountId) {
+        return ResponseEntity.ok(accountService.findId(accountId));
     }
 }

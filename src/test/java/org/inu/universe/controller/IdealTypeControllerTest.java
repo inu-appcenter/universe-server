@@ -3,6 +3,7 @@ package org.inu.universe.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.inu.universe.config.security.LoginAccountArgumentResolver;
 import org.inu.universe.config.security.SecurityConfig;
+import org.inu.universe.repository.ProfileRepository;
 import org.inu.universe.service.impl.IdealTypeServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -61,6 +62,8 @@ class IdealTypeControllerTest {
     private SecurityConfig securityConfig;
     @MockBean
     private WebSecurityConfiguration webSecurityConfiguration;
+    @MockBean
+    private ProfileRepository profileRepository;
 
     private MockMvc mockMvc;
 
@@ -107,16 +110,16 @@ class IdealTypeControllerTest {
                         ),
                         requestFields(
                                 fieldWithPath("region").type(JsonFieldType.STRING).description("지역(필수)"),
-                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별(필수) [여성/남성]"),
-                                fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이(필수)"),
-                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대(필수)")
+                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별(필수) [여성/남성/무관]"),
+                                fieldWithPath("age1").type(JsonFieldType.NUMBER).description("나이(필수)"),
+                                fieldWithPath("age2").type(JsonFieldType.NUMBER).description("나이(필수)")
                         ),
                         responseFields(
                                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("원하는 상대 Id"),
                                 fieldWithPath("region").type(JsonFieldType.STRING).description("지역"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
-                                fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대")
+                                fieldWithPath("age1").type(JsonFieldType.NUMBER).description("나이"),
+                                fieldWithPath("age2").type(JsonFieldType.NUMBER).description("나이")
                         )));
 
         then(idealTypeService).should(times(1)).saveIdealType(any(), any());
@@ -147,16 +150,16 @@ class IdealTypeControllerTest {
                         ),
                         requestFields(
                                 fieldWithPath("region").type(JsonFieldType.STRING).description("지역(필수)"),
-                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별(필수) [여성/남성]"),
-                                fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이(필수)"),
-                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대(필수)")
+                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별(필수) [여성/남성/무관]"),
+                                fieldWithPath("age1").type(JsonFieldType.NUMBER).description("나이(필수)"),
+                                fieldWithPath("age2").type(JsonFieldType.NUMBER).description("나이(필수)")
                         ),
                         responseFields(
                                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("원하는 상대 Id"),
                                 fieldWithPath("region").type(JsonFieldType.STRING).description("지역"),
                                 fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
-                                fieldWithPath("age").type(JsonFieldType.NUMBER).description("나이"),
-                                fieldWithPath("college").type(JsonFieldType.STRING).description("단과대")
+                                fieldWithPath("age1").type(JsonFieldType.NUMBER).description("나이"),
+                                fieldWithPath("age2").type(JsonFieldType.NUMBER).description("나이")
                         )));
 
         then(idealTypeService).should(times(1)).updateIdealType(any(), any());

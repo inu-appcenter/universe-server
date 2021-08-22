@@ -45,3 +45,16 @@ include::{snippets}/account/reissue/request-headers.adoc[]
 ===== RESPONSE
 include::{snippets}/account/reissue/http-response.adoc[]
 include::{snippets}/account/reissue/response-headers.adoc[]
+
+== Account로 관련 Id 조회
+HTTP Header로 Access Token,
+
+본인이 설정한! Account Id, Profile Id, IdealType Id 조회
+
+
+===== REQEUST
+include::{snippets}/account/findId/http-request.adoc[]
+include::{snippets}/account/findId/request-headers.adoc[]
+===== RESPONSE
+include::{snippets}/account/findId/http-response.adoc[]
+include::{snippets}/account/findId/response-fields.adoc[]

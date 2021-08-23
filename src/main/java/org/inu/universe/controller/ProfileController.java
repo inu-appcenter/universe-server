@@ -40,9 +40,9 @@ public class ProfileController {
     /*
     프로필 수정 ( 닉네임, 나이, 성별, 학과 ) 및 설정 추가 ( 프로필 사진, 병역필, 졸업유무, 지역, 키, 체형, mbti, 소개, 해시태그 )
      */
-    @PatchMapping("/profile/{profileId}")
-    public ResponseEntity<ProfileResponse> updateProfile(@PathVariable Long profileId, @RequestPart(required = false) MultipartFile image, @RequestPart @Valid ProfileUpdateRequest request) {
-        return ResponseEntity.ok(profileService.updateProfile(profileId, image, request));
+    @PatchMapping("/profile")
+    public ResponseEntity<ProfileResponse> updateProfile(@LoginAccount Long accountId, @RequestPart(required = false) MultipartFile image, @RequestPart @Valid ProfileUpdateRequest request) {
+        return ResponseEntity.ok(profileService.updateProfile(accountId, image, request));
     }
 
     /*

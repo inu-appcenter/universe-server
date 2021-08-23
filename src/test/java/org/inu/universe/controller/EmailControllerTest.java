@@ -68,7 +68,6 @@ class EmailControllerTest {
 
         String body = objectMapper.writeValueAsString(EMAIL_REQUEST);
 
-
         mockMvc.perform(post("/email")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(body)

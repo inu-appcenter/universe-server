@@ -125,12 +125,6 @@ class AccountControllerTest {
     void reissue() throws Exception {
 
         given(accountService.reissue(any())).willReturn(REISSUE_ACCESS_TOKEN);
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
 
         mockMvc.perform(post("/account/reissue")
                 .header(HttpHeaders.AUTHORIZATION, TOKEN_DTO.getRefreshToken()))
@@ -153,12 +147,6 @@ class AccountControllerTest {
         String response = objectMapper.writeValueAsString(ACCOUNT_RESPONSE);
 
         given(accountService.findId(any())).willReturn(ACCOUNT_RESPONSE);
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
 
         mockMvc.perform(get("/account")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))

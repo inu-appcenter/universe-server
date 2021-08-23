@@ -34,9 +34,20 @@ HTTP Body로 지역, 성별, 나이, 단과대, 병역필를 담아 요청 -> �
 ===== REQUEST
 include::{snippets}/idealType/update/request-headers.adoc[]
 include::{snippets}/idealType/update/http-request.adoc[]
-include::{snippets}/idealType/update/path-parameters.adoc[]
 include::{snippets}/idealType/update/request-fields.adoc[]
 
 ===== RESPONSE
 include::{snippets}/idealType/update/http-response.adoc[]
 include::{snippets}/idealType/update/response-fields.adoc[]
+
+== IdealType 조회
+HTTP Header로 Access Token,
+
+원하는 상대 설정해둔 것 조회
+
+===== REQUEST
+include::{snippets}/idealType/find/request-headers.adoc[]
+include::{snippets}/idealType/find/http-request.adoc[]
+===== RESPONSE
+include::{snippets}/idealType/find/http-response.adoc[]
+include::{snippets}/idealType/find/response-fields.adoc[]

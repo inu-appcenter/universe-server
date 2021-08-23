@@ -90,13 +90,6 @@ class ProfileControllerTest {
 
         given(profileService.saveProfile(any(), any())).willReturn(PROFILE_RESPONSE);
 
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
-
         mockMvc.perform(post("/profile")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -147,13 +140,6 @@ class ProfileControllerTest {
 
         given(profileService.findHashTag(any())).willReturn(hashTagResponseList);
 
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
-
         mockMvc.perform(get("/profile/hashTags")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -185,19 +171,12 @@ class ProfileControllerTest {
         MockMultipartFile request = new MockMultipartFile("request", "request",
                 MediaType.APPLICATION_JSON_VALUE, objectMapper.writeValueAsString(PROFILE_UPDATE_REQUEST).getBytes(StandardCharsets.UTF_8));
 
-        MockMultipartHttpServletRequestBuilder builder = fileUpload("/profile/{profileId}", 1L);
+        MockMultipartHttpServletRequestBuilder builder = fileUpload("/profile" );
         builder.with(request1 -> { request1.setMethod(String.valueOf(HttpMethod.PATCH)); return request1; });
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_2);
 
         given(profileService.updateProfile(any(), any(), any())).willReturn(PROFILE_RESPONSE_2);
-
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
 
         mockMvc.perform(builder.file(image).file(request)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken")
@@ -208,9 +187,6 @@ class ProfileControllerTest {
                 .andDo(document("profile/update",
                         requestHeaders(
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
-                        ),
-                        pathParameters(
-                                parameterWithName("profileId").description("프로필 Id")
                         ),
                         requestParts(
                                 partWithName("image").description("이미지 파일").optional(),
@@ -261,13 +237,6 @@ class ProfileControllerTest {
 
         given(profileService.findProfile(any())).willReturn(PROFILE_RESPONSE_2);
 
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
-
         mockMvc.perform(get("/profile/{profileId}", 1L)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))
                 .andExpect(status().isOk())
@@ -310,13 +279,6 @@ class ProfileControllerTest {
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_3);
 
         given(profileService.findProfile(any())).willReturn(PROFILE_RESPONSE_3);
-
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
 
         mockMvc.perform(get("/profile/{profileId}", 1L)
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))

@@ -119,9 +119,12 @@ public class ProfileServiceImpl implements ProfileService {
      */
     @Override
     @Transactional
-    public ProfileResponse updateProfile(Long profileId, MultipartFile image, ProfileUpdateRequest request) {
+    public ProfileResponse updateProfile(Long accountId, MultipartFile image, ProfileUpdateRequest request) {
 
-        Profile findProfile = profileRepository.findById(profileId)
+        Account findAccount = accountRepository.findById(accountId)
+                .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
+
+        Profile findProfile = profileRepository.findById(findAccount.getProfile().getId())
                 .orElseThrow(() -> new ProfileException("존재하지 않는 게시글입니다."));
 
         // - 닉네임 중복 확인

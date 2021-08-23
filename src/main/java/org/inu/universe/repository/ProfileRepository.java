@@ -8,6 +8,5 @@ import java.util.Optional;
 public interface ProfileRepository extends JpaRepository<Profile, Long> {
 
     Optional<Profile> findByNickName(String nickName);
-
 }
 

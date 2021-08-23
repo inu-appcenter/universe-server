@@ -2,18 +2,14 @@ package org.inu.universe.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.inu.universe.config.security.LoginAccount;
-import org.inu.universe.domain.Profile;
 import org.inu.universe.model.idealType.IdealTypeResponse;
 import org.inu.universe.model.idealType.IdealTypeRequest;
-import org.inu.universe.model.profile.ProfileResponse;
-import org.inu.universe.repository.ProfileRepository;
 import org.inu.universe.service.IdealTypeService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.stream.Collectors;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -32,8 +28,16 @@ public class IdealTypeController {
     /*
     원하는 상대 수정
      */
-    @PatchMapping("/idealType/{idealTypeId}")
-    public ResponseEntity<IdealTypeResponse> updateIdealType(@PathVariable Long idealTypeId, @RequestBody @Valid IdealTypeRequest request) {
-        return ResponseEntity.ok(idealTypeService.updateIdealType(idealTypeId, request));
+    @PatchMapping("/idealType")
+    public ResponseEntity<IdealTypeResponse> updateIdealType(@LoginAccount Long accountId, @RequestBody @Valid IdealTypeRequest request) {
+        return ResponseEntity.ok(idealTypeService.updateIdealType(accountId, request));
+    }
+
+    /*
+    원하는 상대 조회 (설정해둔 것 조회)
+     */
+    @GetMapping("/idealType")
+    public ResponseEntity<IdealTypeResponse> findIdealType(@LoginAccount Long accountId) {
+        return ResponseEntity.ok(idealTypeService.findIdealType(accountId));
     }
 }

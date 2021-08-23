@@ -39,8 +39,7 @@ import static org.springframework.restdocs.headers.HeaderDocumentation.headerWit
 import static org.springframework.restdocs.headers.HeaderDocumentation.requestHeaders;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.documentationConfiguration;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.*;
 import static org.springframework.restdocs.operation.preprocess.Preprocessors.prettyPrint;
 import static org.springframework.restdocs.payload.PayloadDocumentation.*;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
@@ -90,13 +89,6 @@ class IdealTypeControllerTest {
 
         given(idealTypeService.saveIdealType(any(), any())).willReturn(IDEAL_TYPE_RESPONSE);
 
-        when(loginAccountArgumentResolver.resolveArgument(
-                (MethodParameter) notNull()
-                , (ModelAndViewContainer) notNull()
-                , (NativeWebRequest) notNull()
-                , (WebDataBinderFactory) notNull()
-        )).thenReturn(1L);
-
         mockMvc.perform(post("/idealType")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
@@ -134,7 +126,7 @@ class IdealTypeControllerTest {
 
         given(idealTypeService.updateIdealType(any(), any())).willReturn(IDEAL_TYPE_RESPONSE_2);
 
-        mockMvc.perform(patch("/idealType/{idealTypeId}", 1L)
+        mockMvc.perform(patch("/idealType")
                 .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken")
                 .contentType(MediaType.APPLICATION_JSON_VALUE)
                 .content(body)
@@ -144,9 +136,6 @@ class IdealTypeControllerTest {
                 .andDo(document("idealType/update",
                         requestHeaders(
                                 headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
-                        ),
-                        pathParameters(
-                                parameterWithName("idealTypeId").description("IdealType Id ")
                         ),
                         requestFields(
                                 fieldWithPath("region").type(JsonFieldType.STRING).description("지역(필수)"),
@@ -165,5 +154,30 @@ class IdealTypeControllerTest {
         then(idealTypeService).should(times(1)).updateIdealType(any(), any());
     }
 
+    @Test
+    @DisplayName("원하는 상대 조회 (설정해둔 것 조회)")
+    public void findIdealType() throws Exception {
 
+        String response = objectMapper.writeValueAsString(IDEAL_TYPE_RESPONSE);
+
+        given(idealTypeService.findIdealType(any())).willReturn(IDEAL_TYPE_RESPONSE);
+
+        mockMvc.perform(get("/idealType")
+                .header(HttpHeaders.AUTHORIZATION, "Bearer AccessToken"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(response))
+                .andDo(document("idealType/find",
+                        requestHeaders(
+                                headerWithName(HttpHeaders.AUTHORIZATION).description("AccessToken")
+                        ),
+                        responseFields(
+                                fieldWithPath("id").type(JsonFieldType.NUMBER).description("원하는 상대 Id"),
+                                fieldWithPath("region").type(JsonFieldType.STRING).description("지역"),
+                                fieldWithPath("gender").type(JsonFieldType.STRING).description("성별"),
+                                fieldWithPath("age1").type(JsonFieldType.NUMBER).description("나이"),
+                                fieldWithPath("age2").type(JsonFieldType.NUMBER).description("나이")
+                        )));
+
+        then(idealTypeService).should(times(1)).findIdealType(any());
+    }
 }

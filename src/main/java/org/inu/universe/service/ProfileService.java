@@ -14,7 +14,7 @@ public interface ProfileService {
 
     List<HashTagResponse> findHashTag(HashTagSaveRequest request);
 
-    ProfileResponse updateProfile(Long profileId, MultipartFile image, ProfileUpdateRequest request);
+    ProfileResponse updateProfile(Long accountId, MultipartFile image, ProfileUpdateRequest request);
 
     ProfileResponse findProfile(Long profileId);
 }

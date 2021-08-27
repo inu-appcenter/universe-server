@@ -15,7 +15,7 @@ public class ProfileTag extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "profileTag_id")
+    @Column(name = "profile_tag_id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -23,7 +23,7 @@ public class ProfileTag extends BaseEntity{
     private Profile profile;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "hashTag_id")
+    @JoinColumn(name = "hash_tag_id")
     private HashTag hashTag;
 
     public static ProfileTag saveProfileTag(Profile profile, HashTag hashTag) {

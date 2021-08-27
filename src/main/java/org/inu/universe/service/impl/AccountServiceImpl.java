@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.inu.universe.config.security.JwtTokenProvider;
 import org.inu.universe.domain.Email;
 import org.inu.universe.domain.Account;
+import org.inu.universe.domain.Profile;
 import org.inu.universe.exception.EmailException;
 import org.inu.universe.exception.AccountException;
 import org.inu.universe.model.account.AccountLoginRequest;
@@ -12,11 +13,13 @@ import org.inu.universe.model.account.AccountSaveRequest;
 import org.inu.universe.model.token.TokenDto;
 import org.inu.universe.repository.EmailRepository;
 import org.inu.universe.repository.AccountRepository;
+import org.inu.universe.repository.ProfileRepository;
 import org.inu.universe.service.AccountService;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 
@@ -122,7 +125,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     /*
-    Id 조회
+    Id 조회 (profileId, IdealTypeId)
      */
     @Override
     public AccountResponse findId(Long accountId) {

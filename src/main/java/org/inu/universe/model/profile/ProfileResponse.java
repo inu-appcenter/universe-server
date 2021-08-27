@@ -3,7 +3,6 @@ package org.inu.universe.model.profile;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.inu.universe.domain.HashTag;
 import org.inu.universe.domain.Profile;
 import org.inu.universe.domain.ProfileImage;
 

@@ -49,7 +49,6 @@ HTTP Header로 Access Token,
 
 프로필 사진(image)와 수정 사항 요청 -> 프로필 수정
 
-
 ===== REQUEST
 include::{snippets}/profile/update/request-headers.adoc[]
 include::{snippets}/profile/update/http-request.adoc[]
@@ -82,3 +81,4 @@ include::{snippets}/profile/findProfile(private)/path-parameters.adoc[]
 ===== RESPONSE
 include::{snippets}/profile/findProfile(private)/http-response.adoc[]
 include::{snippets}/profile/findProfile(public)/response-fields.adoc[]
+

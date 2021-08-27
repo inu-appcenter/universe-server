@@ -4,9 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.inu.universe.config.security.LoginAccount;
 import org.inu.universe.model.hashtag.HashTagResponse;
 import org.inu.universe.model.hashtag.HashTagSaveRequest;
-import org.inu.universe.model.profile.ProfileResponse;
-import org.inu.universe.model.profile.ProfileSaveRequest;
-import org.inu.universe.model.profile.ProfileUpdateRequest;
+import org.inu.universe.model.profile.*;
 import org.inu.universe.service.ProfileService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -52,4 +50,5 @@ public class ProfileController {
     public ResponseEntity<ProfileResponse> findProfile(@PathVariable Long profileId) {
         return ResponseEntity.ok(profileService.findProfile(profileId));
     }
+
 }

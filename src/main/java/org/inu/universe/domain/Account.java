@@ -7,6 +7,8 @@ import lombok.NoArgsConstructor;
 import org.inu.universe.domain.status.AccountRole;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -35,8 +37,11 @@ public class Account extends BaseEntity {
     private Profile profile;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE, orphanRemoval = true)
-    @JoinColumn(name = "idealType_id")
+    @JoinColumn(name = "ideal_type_id")
     private IdealType idealType;
+
+    @OneToMany(mappedBy = "account", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Recommend> recommendList = new ArrayList<>();
 
     public static Account saveAccount(Email email, String password) {
         Account account = new Account();

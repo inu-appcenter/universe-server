@@ -12,13 +12,8 @@ import org.inu.universe.exception.HashTagException;
 import org.inu.universe.exception.ProfileException;
 import org.inu.universe.model.hashtag.HashTagResponse;
 import org.inu.universe.model.hashtag.HashTagSaveRequest;
-import org.inu.universe.model.profile.ProfileResponse;
-import org.inu.universe.model.profile.ProfileSaveRequest;
-import org.inu.universe.model.profile.ProfileUpdateRequest;
-import org.inu.universe.repository.AccountRepository;
-import org.inu.universe.repository.HashTagRepository;
-import org.inu.universe.repository.ProfileRepository;
-import org.inu.universe.repository.ProfileTagRepository;
+import org.inu.universe.model.profile.*;
+import org.inu.universe.repository.*;
 import org.inu.universe.repository.query.ProfileQueryRepository;
 import org.inu.universe.service.ProfileService;
 import org.springframework.beans.factory.annotation.Value;
@@ -84,7 +79,7 @@ public class ProfileServiceImpl implements ProfileService {
             throw new ProfileException("이미 존재하는 닉네임입니다.");
         }
 
-        Profile profile = Profile.saveProfile(request.getNickName(), request.getAge(), request.getGender(),request.getCollege(), request.getMajor());
+        Profile profile = Profile.saveProfile(request.getNickName(), request.getAge(), request.getGender(), request.getCollege(), request.getMajor());
         Profile savedProfile = profileRepository.save(profile);
         findAccount.setProfile(savedProfile);
 
@@ -125,7 +120,7 @@ public class ProfileServiceImpl implements ProfileService {
                 .orElseThrow(() -> new AccountException("존재하지 않는 계정입니다."));
 
         Profile findProfile = profileRepository.findById(findAccount.getProfile().getId())
-                .orElseThrow(() -> new ProfileException("존재하지 않는 게시글입니다."));
+                .orElseThrow(() -> new ProfileException("존재하지 않는 프로필입니다."));
 
         // - 닉네임 중복 확인
         if (profileRepository.findByNickName(request.getNickName()).isPresent() && !findProfile.getNickName().equals(request.getNickName())) {

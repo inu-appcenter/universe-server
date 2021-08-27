@@ -9,10 +9,10 @@ import org.inu.universe.model.idealType.IdealTypeResponse;
 import org.inu.universe.model.idealType.IdealTypeRequest;
 import org.inu.universe.repository.AccountRepository;
 import org.inu.universe.repository.IdealTypeRepository;
-import org.inu.universe.repository.ProfileRepository;
 import org.inu.universe.service.IdealTypeService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +22,9 @@ public class IdealTypeServiceImpl implements IdealTypeService {
     private final IdealTypeRepository idealTypeRepository;
     private final AccountRepository accountRepository;
 
+    /*
+    원하는 상대 설정
+     */
     @Override
     @Transactional
     public IdealTypeResponse saveIdealType(Long accountId, IdealTypeRequest request) {
@@ -36,6 +39,9 @@ public class IdealTypeServiceImpl implements IdealTypeService {
         return IdealTypeResponse.from(savedIdealType);
     }
 
+    /*
+    원하는 상대 수정
+     */
     @Override
     @Transactional
     public IdealTypeResponse updateIdealType(Long accountId, IdealTypeRequest request) {
@@ -51,6 +57,9 @@ public class IdealTypeServiceImpl implements IdealTypeService {
         return IdealTypeResponse.from(findIdealType);
     }
 
+    /*
+    원하는 상대 설정해둔 것 조회
+     */
     @Override
     public IdealTypeResponse findIdealType(Long accountId) {
         Account findAccount = accountRepository.findById(accountId)
@@ -61,4 +70,5 @@ public class IdealTypeServiceImpl implements IdealTypeService {
 
         return IdealTypeResponse.from(findIdealType);
     }
+
 }

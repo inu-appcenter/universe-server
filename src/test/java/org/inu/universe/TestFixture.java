@@ -1,9 +1,7 @@
 package org.inu.universe;
 
-import org.inu.universe.domain.Account;
 import org.inu.universe.domain.Email;
 import org.inu.universe.domain.ProfileImage;
-import org.inu.universe.domain.status.AccountRole;
 import org.inu.universe.model.account.AccountLoginRequest;
 import org.inu.universe.model.account.AccountResponse;
 import org.inu.universe.model.account.AccountSaveRequest;
@@ -13,6 +11,7 @@ import org.inu.universe.model.hashtag.HashTagResponse;
 import org.inu.universe.model.hashtag.HashTagSaveRequest;
 import org.inu.universe.model.idealType.IdealTypeRequest;
 import org.inu.universe.model.idealType.IdealTypeResponse;
+import org.inu.universe.model.profile.ProfileDto;
 import org.inu.universe.model.profile.ProfileResponse;
 import org.inu.universe.model.profile.ProfileSaveRequest;
 import org.inu.universe.model.profile.ProfileUpdateRequest;
@@ -38,12 +37,6 @@ public class TestFixture {
 
     public static final Email EMAIL
             = new Email(1L, "a@inu.ac.kr");
-
-//    public static final Account ACCOUNT
-//            = new Account(1L,  "a", null, AccountRole.ROLE_USER, EMAIL,null, null);
-//
-//    public static final Account ACCOUNT_2
-//            = new Account(1L,  "a", "abcd", AccountRole.ROLE_USER, EMAIL, null, null);
 
     public static final TokenDto TOKEN_DTO
             = new TokenDto("abcdefg", "ABCDEFG");
@@ -99,4 +92,19 @@ public class TestFixture {
 
     public static final AccountResponse ACCOUNT_RESPONSE
             = new AccountResponse("1", "1", "1");
+
+    public static final ProfileDto PROFILE_DTO
+            = new ProfileDto(1L, PROFILE_IMAGE, "닉네임", 20, "성별", "학과");
+
+    public static final ProfileDto PROFILE_DTO_2
+            = new ProfileDto(2L, PROFILE_IMAGE, "닉네임", 20, "성별", "학과");
+
+    public static final ProfileDto PROFILE_DTO_3
+            = new ProfileDto(3L, PROFILE_IMAGE, "닉네임", 20, "성별", "학과");
+
+    public static final ProfileDto PROFILE_DTO_4
+            = new ProfileDto(4L, PROFILE_IMAGE, "닉네임", 20, "성별", "학과");
+
+    public static final ProfileDto PROFILE_DTO_5
+            = new ProfileDto(5L, PROFILE_IMAGE, "닉네임", 20, "성별", "학과");
 }

@@ -5,6 +5,8 @@ import lombok.RequiredArgsConstructor;
 import org.inu.universe.domain.*;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 @RequiredArgsConstructor
 public class ProfileQueryRepository {
@@ -20,4 +22,11 @@ public class ProfileQueryRepository {
                 .fetchOne();
     }
 
+    public List<Profile> findAllProfile() {
+        return queryFactory.select(QProfile.profile).distinct()
+                .from(QProfile.profile)
+                .leftJoin(QProfile.profile.profileTagList, QProfileTag.profileTag).fetchJoin()
+                .leftJoin(QProfileTag.profileTag.hashTag, QHashTag.hashTag).fetchJoin()
+                .fetch();
+    }
 }

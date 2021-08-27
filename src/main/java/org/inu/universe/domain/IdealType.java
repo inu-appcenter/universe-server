@@ -11,11 +11,11 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class IdealType {
+public class IdealType extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idealType_id")
+    @Column(name = "ideal_type_id")
     private Long id;
 
     private String region;

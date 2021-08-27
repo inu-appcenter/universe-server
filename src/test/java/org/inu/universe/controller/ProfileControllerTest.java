@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.core.MethodParameter;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.MediaType;
@@ -25,10 +24,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMultipartHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.WebApplicationContext;
-import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.method.support.ModelAndViewContainer;
 
 import java.nio.charset.StandardCharsets;
 import java.util.List;
@@ -171,8 +167,11 @@ class ProfileControllerTest {
         MockMultipartFile request = new MockMultipartFile("request", "request",
                 MediaType.APPLICATION_JSON_VALUE, objectMapper.writeValueAsString(PROFILE_UPDATE_REQUEST).getBytes(StandardCharsets.UTF_8));
 
-        MockMultipartHttpServletRequestBuilder builder = fileUpload("/profile" );
-        builder.with(request1 -> { request1.setMethod(String.valueOf(HttpMethod.PATCH)); return request1; });
+        MockMultipartHttpServletRequestBuilder builder = fileUpload("/profile");
+        builder.with(request1 -> {
+            request1.setMethod(String.valueOf(HttpMethod.PATCH));
+            return request1;
+        });
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_2);
 
@@ -231,7 +230,7 @@ class ProfileControllerTest {
 
     @Test
     @DisplayName("프로필 조회 [공개일 경우]")
-    public void findPublicProfile() throws Exception{
+    public void findPublicProfile() throws Exception {
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_2);
 
@@ -274,7 +273,7 @@ class ProfileControllerTest {
 
     @Test
     @DisplayName("프로필 조회 [비공개일 경우]")
-    public void findPrivateProfile() throws Exception{
+    public void findPrivateProfile() throws Exception {
 
         String response = objectMapper.writeValueAsString(PROFILE_RESPONSE_3);
 

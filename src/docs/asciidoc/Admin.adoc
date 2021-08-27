@@ -14,6 +14,7 @@
 [[api]]
 == Admin - 계정 삭제
 Http Headr로 admin AccessToken,
+
 pathVariable에 해당하는 계정 삭제(프로필, 프로필 태그, 이메일 포함)
 
 ===== REQUEST
@@ -22,3 +23,15 @@ include::{snippets}/admin/deleteAccount/request-headers.adoc[]
 include::{snippets}/admin/deleteAccount/path-parameters.adoc[]
 ===== RESPONSE
 include::{snippets}/admin/deleteAccount/http-response.adoc[]
+
+== Admin - 프로필 추천 실행
+Http Headr로 admin AccessToken,
+
+매일 자정에 실행되는 프로필 추천 실행
+
+===== REQUEST
+include::{snippets}/admin/recommend/request-headers.adoc[]
+include::{snippets}/admin/recommend/http-request.adoc[]
+===== RESPONSE
+include::{snippets}/admin/recommend/http-response.adoc[]
+

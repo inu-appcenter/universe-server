@@ -1,0 +1,39 @@
+:basedir: {docdir}/../../../
+:snippets: {basedir}/build/generated-snippets
+
+= Recommend API GUIDE
+:doctype: recommend
+:icons: font
+:source-highlighter: highlightjs
+:toc: left
+:toclevels: 4
+:sectnums:
+:sectlinks:
+:sectanchors:
+
+[[api]]
+== Recommend 리스트 조회
+HTTP Header로 Access Token
+
+추천된 원하는 상대 프로필 리스트 조회
+
+===== REQUEST
+include::{snippets}/recommend/findRecommendList/request-headers.adoc[]
+include::{snippets}/recommend/findRecommendList/http-request.adoc[]
+
+===== RESPONSE
+include::{snippets}/recommend/findRecommendList/http-response.adoc[]
+include::{snippets}/recommend/findRecommendList/response-fields.adoc[]
+
+== Recommend 관심 없음
+HTTP Header로 Access Token,
+
+해당 프로필 "관심 없음" -> 추천 리스트에서 해당 프로필 삭제
+
+===== REQUEST
+include::{snippets}/recommend/dislike/request-headers.adoc[]
+include::{snippets}/recommend/dislike/http-request.adoc[]
+include::{snippets}/recommend/dislike/path-parameters.adoc[]
+
+===== RESPONSE
+include::{snippets}/recommend/dislike/http-response.adoc[]
